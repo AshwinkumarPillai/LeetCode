@@ -1,0 +1,14 @@
+class Solution {
+public:
+    
+    int maxProfit(vector<int>& prices) {
+        int buy = INT_MIN,sell = 0,p_sell = 0,p_buy;
+        for(int x : prices){
+            p_buy = buy;
+            buy = max(buy, p_sell - x);
+            p_sell = sell;
+            sell = max(sell, p_buy + x);  
+        }
+        return sell;
+    }
+};
