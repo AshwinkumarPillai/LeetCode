@@ -1,39 +1,32 @@
-class MinStack
-{
+class MinStack {
 public:
-    // pair<top,min>
-    stack<pair<int, int>> s;
-    MinStack()
-    {
+    
+    vector<int>stack;
+    vector<int>minVals;
+    
+    /** initialize your data structure here. */
+    MinStack() {
+        
     }
 
-    void push(int x)
-    {
-        if (s.empty())
-        {
-            s.push({x, x});
-        }
-        else
-        {
-            s.push({x, min(x, s.top().second)});
-        }
+    // Memory Effecient - only store min Value if current value is a min val
+    void push(int val) {
+        stack.push_back(val);
+        if(minVals.size()){
+            if(val <= minVals.back()) minVals.push_back(val);
+        }else minVals.push_back(val);
     }
-
-    void pop()
-    {
-        if (!s.empty())
-        {
-            s.pop();
-        }
+    
+    void pop() {
+        if(minVals.back() == stack.back()) minVals.pop_back();
+        stack.pop_back();
     }
-
-    int top()
-    {
-        return s.top().first;
+    
+    int top() {
+        return stack.back();
     }
-
-    int getMin()
-    {
-        return s.top().second;
+    
+    int getMin() {
+        return minVals.back();
     }
 };
