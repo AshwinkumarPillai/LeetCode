@@ -11,6 +11,22 @@ public:
     }
 };
 
+// Memoization - using map
+class Solution {
+public:
+    
+    int fib(int n, unordered_map<int, int>& m){
+        if(m.find(n) != m.end()) return m[n];
+        return m[n] = fib(n-1,m) + fib(n-2,m);
+    }
+    
+    int fib(int n) {
+        unordered_map<int, int>m;
+        m[0] = 0;m[1] = 1;m[2] = 1;
+        return fib(n, m);
+    }
+};
+
 // Iterative
 class Solution {
 public:
@@ -20,4 +36,3 @@ public:
         return fib(n-1) + fib(n-2);
     }
 };
-
