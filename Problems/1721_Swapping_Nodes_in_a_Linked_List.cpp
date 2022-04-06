@@ -1,3 +1,20 @@
+// Three Pointer - Single pass - updated
+class Solution {
+public:
+    ListNode* swapNodes(ListNode* head, int k) {
+        ListNode* first = head, *second = head;
+        for(int i=1;i<k;i++) first = first->next;
+        
+        ListNode* trav = first;
+        while(trav->next){
+            trav = trav->next;
+            second = second->next;
+        }
+        swap(first->val, second->val);
+        return head;
+    }
+};
+
 // Three Pointer - Single pass
 class Solution {
 public:
