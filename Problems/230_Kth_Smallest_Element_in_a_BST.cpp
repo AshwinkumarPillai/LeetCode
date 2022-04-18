@@ -1,7 +1,28 @@
+//Without extra space (only recursion)
+class Solution {
+public:
+    
+    int ans;
+    
+    int dfs(TreeNode* root, int k){
+        if(!root) return k;
+        k = dfs(root->left, k);
+        k--;
+        if(k == 0) ans = root->val;
+        k = dfs(root->right, k);
+        return k;
+    }
+    
+    int kthSmallest(TreeNode* root, int k) {
+        dfs(root, k);
+        return ans;
+    }
+};
+
+// Using stack | Optimized Space solution with respect to array -> O(height + k)
 class Solution
 {
-public:
-    // Optimized solution -> O(height + k)
+public: 
     int kthSmallest(TreeNode *root, int k)
     {
         stack<TreeNode *> s;
@@ -21,8 +42,13 @@ public:
             root = root->right;
         }
     }
+};
 
-    // O(n) solution
+
+// Using array
+class Solution {
+public:
+    
     vector<int> trav;
 
     void dfs(TreeNode *root)
