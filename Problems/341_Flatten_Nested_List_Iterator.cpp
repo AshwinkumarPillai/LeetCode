@@ -16,6 +16,8 @@
  * };
  */
 
+
+// Flatten via Recursion - Space - O(N) | Time - O(N)
 class NestedIterator {
 public:
     
@@ -46,6 +48,43 @@ public:
         return i < n;
     }
 };
+
+
+// Using Stack | Time - O(N) | Space - O(N)
+class NestedIterator {
+public:
+    
+    stack<NestedInteger> st;
+    
+    void fillStack(vector<NestedInteger> &nl){
+        int n = nl.size();
+        for(int i = n-1; i>=0;i--){
+            st.push(nl[i]);
+        }
+    }
+    
+    NestedIterator(vector<NestedInteger> &nestedList) {
+        fillStack(nestedList);
+    }
+    
+    int next() {
+        int ans = st.top().getInteger();
+        st.pop();
+        return ans;
+    }
+    
+    bool hasNext() {
+        while(!st.empty()){
+            auto curr = st.top();
+            if(curr.isInteger()) return true;
+            
+            st.pop();
+            fillStack(curr.getList());
+        }
+        return false;
+    }
+};
+
 
 /**
  * Your NestedIterator object will be instantiated and called as such:
