@@ -1,3 +1,24 @@
+// Matrix Traversal - O(1) Space
+class Solution {
+public:
+    int minDeletionSize(vector<string>& strs) {
+        int n = strs.size();
+        int k = strs[0].size();
+        int ans = 0;
+        if(n == 1) return 0;
+        for(int i = 0; i < k; i++){
+            for(int j = 1; j<n; j++){
+                if(strs[j][i] < strs[j-1][i]){
+                    ans++;
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+
 // My Initial Solution
 // Store the latest letter in integer form at each index representing respective columns
 // Check if the current letter is lower than the previous if yes we need to remove this column
