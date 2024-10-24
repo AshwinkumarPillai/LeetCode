@@ -71,3 +71,46 @@ public:
 };
 
 // 03 - BFS
+class Solution
+{
+public:
+    bool isEqual(TreeNode *r1, TreeNode *r2)
+    {
+        if (!r1 || !r2)
+            return r1 == r2;
+        return r1->val == r2->val;
+    }
+
+    bool flipEquiv(TreeNode *root1, TreeNode *root2)
+    {
+        queue<pair<TreeNode *, TreeNode *>> q;
+        q.push({root1, root2});
+
+        while (!q.empty())
+        {
+            pair<TreeNode *, TreeNode *> p = q.front();
+            q.pop();
+            TreeNode *r1 = p.first, *r2 = p.second;
+            if (!isEqual(r1, r2))
+                return false;
+            if (r1 && r2)
+            {
+                if (isEqual(r1->left, r2->left) && isEqual(r1->right, r2->right))
+                {
+                    q.push({r1->left, r2->left});
+                    q.push({r1->right, r2->right});
+                }
+                else if (isEqual(r1->left, r2->right) && isEqual(r1->right, r2->left))
+                {
+                    q.push({r1->left, r2->right});
+                    q.push({r1->right, r2->left});
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};
