@@ -1,3 +1,36 @@
+// RIPPLE SOLUTION
+class Solution
+{
+public:
+    string ripple(string &s, int i, int j, int n)
+    {
+        if (s[i] != s[j])
+            return "";
+        while (i - 1 >= 0 && j + 1 < n && s[i - 1] == s[j + 1])
+        {
+            i--;
+            j++;
+        }
+        return s.substr(i, j - i + 1);
+    }
+
+    string longestPalindrome(string s)
+    {
+        string ans = "";
+        int n = s.length();
+        for (int i = 0; i < n; i++)
+        {
+            string a = ripple(s, i, i, n);
+            string b = ripple(s, i, i + 1, n);
+            string t = a.length() > b.length() ? a : b;
+            if (t.length() > ans.length())
+                ans = t;
+        }
+        return ans;
+    }
+};
+
+// WITHOUT STORING THE STRINGS
 class Solution
 {
 public:
