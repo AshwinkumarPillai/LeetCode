@@ -1,25 +1,81 @@
+// ITERATIVE SOLUTION
+class Solution
+{
+public:
+    vector<vector<int>> subsets(vector<int> &nums)
+    {
+        vector<vector<int>> ans = {{}};
+
+        for (int x : nums)
+        {
+            int sz = ans.size();
+            for (int i = 0; i < sz; i++)
+            {
+                vector<int> sub = ans[i];
+                sub.push_back(x);
+                ans.push_back(sub);
+            }
+        }
+
+        return ans;
+    }
+};
+
+// NORMAL DFS
+class Solution
+{
+public:
+    void dfs(vector<vector<int>> &ans, vector<int> &cur, vector<int> &nums, int i, int &n)
+    {
+        if (i == n)
+        {
+            ans.push_back(cur);
+            return;
+        }
+        cur.push_back(nums[i]);
+        dfs(ans, cur, nums, i + 1, n);
+        cur.pop_back();
+        dfs(ans, cur, nums, i + 1, n);
+    }
+
+    vector<vector<int>> subsets(vector<int> &nums)
+    {
+        vector<vector<int>> ans;
+        vector<int> curr;
+        int n = nums.size();
+        dfs(ans, curr, nums, 0, n);
+        return ans;
+    }
+};
+
 // Lexicographic (Binary Sorted) Subsets
 
-class Solution {
+class Solution
+{
 public:
-    vector<int>FindSubSet(int no,vector<int>&nums){
-        vector<int>re;
+    vector<int> FindSubSet(int no, vector<int> &nums)
+    {
+        vector<int> re;
         int i = 0;
-        while(no){
-            if(no&1){
+        while (no)
+        {
+            if (no & 1)
+            {
                 re.push_back(nums[i]);
             }
             i++;
-            no>>=1;
+            no >>= 1;
         }
         return re;
     }
-    vector<vector<int>> subsets(vector<int>& nums) {
+    vector<vector<int>> subsets(vector<int> &nums)
+    {
         int n = nums.size();
-        vector<vector<int>>ans;
-        int total = 1<<n;
-        for(int i=0;i<total;i++){
-            vector<int>temp = FindSubSet(i,nums);
+        vector<vector<int>> ans;
+        int total = 1 << n;
+        for (int i = 0; i < total; i++)
+        {
+            vector<int> temp = FindSubSet(i, nums);
             ans.push_back(temp);
         }
         return ans;
