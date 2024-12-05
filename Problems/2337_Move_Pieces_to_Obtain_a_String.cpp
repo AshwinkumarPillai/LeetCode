@@ -1,4 +1,38 @@
-// Map the indices and check the order
+// Single Pass - No extra Space solution
+// O(n) - Time | O(1) - Space
+class Solution
+{
+public:
+    bool canChange(string start, string target)
+    {
+        int n = start.length();
+        int sIndex = 0, tIndex = 0;
+
+        while (sIndex < n || tIndex < n)
+        {
+            while (sIndex < n && start[sIndex] == '_')
+                sIndex++;
+            while (tIndex < n && target[tIndex] == '_')
+                tIndex++;
+
+            if (sIndex == n || tIndex == n)
+                return sIndex == tIndex;
+
+            if (start[sIndex] != target[tIndex])
+                return false;
+
+            if ((target[tIndex] == 'L' && sIndex < tIndex) || (target[tIndex] == 'R' && sIndex > tIndex))
+                return false;
+
+            sIndex++;
+            tIndex++;
+        }
+
+        return sIndex == tIndex;
+    }
+};
+
+// Map the indices and check the order -  with extra space to store the mapping (Not Effecient)
 class Solution
 {
 public:
